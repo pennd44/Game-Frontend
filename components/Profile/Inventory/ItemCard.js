@@ -7,15 +7,17 @@ import { setUser } from '../../../actions';
 
 
 const ItemCard = (props) => {
+    let ip = "192.168.1.227:3000"
+    // let ip = "10.0.0.97:3000"
     let dispatch = useDispatch()
     let user = useSelector(state => state.user)
     async function equip(item) {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${user.id}/equip/${item.id}`)
+        res = await fetch(`http://${ip}/api/v1/players/${user.id}/equip/${item.id}`)
         res.json()
             .then(user => dispatch(setUser(user)))
     }
     async function unequip(item) {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${user.id}/unequip/${item.id}`)
+        res = await fetch(`http://${ip}/api/v1/players/${user.id}/unequip/${item.id}`)
         res.json()
             .then(user => dispatch(setUser(user)))
     }

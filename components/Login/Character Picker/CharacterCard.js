@@ -5,10 +5,12 @@ import { setUser } from '../../../actions'
 
 
 const CharacterCard = (props) => {
+    let ip = "192.168.1.227:3000"
+    // let ip = "10.0.0.97:3000"
     let dispatch = useDispatch()
     let avatar = (props.character.image)
     async function createAccount() {
-        const res = await fetch('http://10.0.0.92:3000/api/v1/players', {
+        const res = await fetch('http://' + ip + '/api/v1/players', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

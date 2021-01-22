@@ -1,11 +1,13 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, ImageBackground, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { isBattling, setUser, updateEnemy } from '../../actions'
+import { isBattling, setUser, updateEnemy, setBattleBg } from '../../actions'
 import { Container, Header, Content, Card, CardItem, Text, Body, Button } from "native-base";
 
 
 const Area = (props) => {
+    let ip = "192.168.1.227:3000"
+    // let ip = "10.0.0.97:3000"
     let dispatch = useDispatch()
     const { area } = props.route.params;
     let userId = useSelector(state => state.user.id)
@@ -17,10 +19,11 @@ const Area = (props) => {
         let background = job.battle_bg
         dispatch(updateEnemy(enemy))
         dispatch(isBattling(true))
-        props.navigation.navigate('Battle', { background: background })
+        dispatch(setBattleBg(background))
+        props.navigation.navigate('Battle')
     }
     async function dojob(id) {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${userId}/dojob/${id}`)
+        res = await fetch(`http://${ip}/api/v1/players/${userId}/dojob/${id}`)
             .then(res => res.json())
             .then(user => dispatch(setUser(user)))
     }

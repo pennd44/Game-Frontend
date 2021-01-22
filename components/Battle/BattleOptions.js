@@ -21,13 +21,15 @@ const { SlideInMenu } = renderers;
 
 
 const BattleOptions = (props) => {
+    let ip = "192.168.1.227:3000"
+    // let ip = "10.0.0.97:3000"
     let user = useSelector(state => state.user)
     let enemy = useSelector(state => state.enemy)
     let dispatch = useDispatch()
     let battling = useSelector(state => state.isBattling)
 
     async function endbattle(result) {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${user.id}/${result}battle/${enemy.id}`,
+        res = await fetch(`http://${ip}/api/v1/players/${user.id}/${result}battle/${enemy.id}`,
             {
                 method: "PATCH",
                 headers: { "Content-type": "application/json" },
@@ -46,7 +48,7 @@ const BattleOptions = (props) => {
     }
 
     async function updateUser() {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${user.id}`,
+        res = await fetch(`http://${ip}/api/v1/players/${user.id}`,
             {
                 method: "PATCH",
                 headers: { "Content-type": "application/json" },
@@ -74,8 +76,9 @@ const BattleOptions = (props) => {
     }
     function attack() {
         console.log("ATTACK:", enemy.current_health -= (user.attack - enemy.defense))
+        console.log("STATS:", user.adjusted_stats.attack - enemy.defense)
         if (user.attack - enemy.defense < enemy.current_health) {
-            enemy.current_health -= (user.attack - enemy.defense)
+            enemy.current_health -= (user.adjusted_stats.attack - enemy.defense)
         } else { enemy.current_health = 0 }
         dispatch(updateEnemy(enemy))
         if (enemy.current_health === 0) {

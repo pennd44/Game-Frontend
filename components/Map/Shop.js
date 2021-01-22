@@ -6,17 +6,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../actions';
 
 const Shop = (props) => {
+    let ip = "192.168.1.227:3000"
+// let ip = "10.0.0.97:3000"
     let user = useSelector(state => state.user)
     let dispatch = useDispatch()
     const { areaItems } = props.route.params;
     // console.log(areaItems)
     async function purchase(item) {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${user.id}/obtainitem/${item.id}`)
+        res = await fetch(`http://${ip}/api/v1/players/${user.id}/obtainitem/${item.id}`)
         res.json()
             .then(player => dispatch(setUser(player)))
     }
     async function updateMoney(item) {
-        res = await fetch(`http://10.0.0.92:3000/api/v1/players/${user.id}`, {
+        res = await fetch(`http://${ip}/api/v1/players/${user.id}`, {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({

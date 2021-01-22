@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Button, Text, StyleSheet, TextInput } from 'react-native'
-import { setUser, logout } from '../../actions'
-import { useDispatch } from 'react-redux'
+import { setUser, logout, increment, decrement } from '../../actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
 
 const Login = (props) => {
+    let ip = "192.168.1.227:3000"
+    // let ip = "10.0.0.97:3000"
     let [username, changeUsername] = useState('')
     let [password, changePassword] = useState('')
     const dispatch = useDispatch()
+ 
 
     async function fetchUser(username, password) {
-        const res = await fetch('http://10.0.0.92:3000/api/v1/login', {
+        const res = await fetch('http://' + ip + '/api/v1/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

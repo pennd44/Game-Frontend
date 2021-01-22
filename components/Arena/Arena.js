@@ -6,12 +6,14 @@ import { fetchEnemies } from '../../actions'
 import ArenaEnemy from './ArenaEnemy'
 
 
-// let url = 'http://10.0.0.92:3000/api/v1/enemies'
+// let url = 'http://10.0.0.97:3000/api/v1/enemies'
 
 const Arena = (props) => {
+    let ip = "192.168.1.227:3000"
+    // let ip = "10.0.0.97:3000"
     let dispatch = useDispatch()
     async function fetchUsers() {
-        res = await fetch('http://10.0.0.92:3000/api/v1/players')
+        res = await fetch('http://' + ip + '/api/v1/players')
         res.json()
             .then(players => dispatch(fetchEnemies(players)))
     }

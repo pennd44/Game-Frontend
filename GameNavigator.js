@@ -11,20 +11,23 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { default as FIcon } from 'react-native-vector-icons/Fontisto';
 import { default as LIcon } from 'react-native-vector-icons/Feather';
 
-
+let ip = "192.168.1.227:3000"
+// let ip = ".0.97:3000"
 const navigator = createBottomTabNavigator()
 
 const GameNavigator = (props) => {
     let battling = useSelector(state => state.isBattling)
     let dispatch = useDispatch()
     async function fetchData() {
-        const res = await fetch('http://10.0.0.92:3000/api/v1/players')
+        const res = await fetch('http://' + ip + '/api/v1/players')
         res.json()
             .then(enemies => dispatch(fetchEnemies(enemies)))
     }
 
+
     useEffect(() => {
         fetchData();
+
         battling ? props.navigation.navigate('Battle') : null
     }
         , [])
